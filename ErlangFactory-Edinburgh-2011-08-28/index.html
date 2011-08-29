@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Chrome Developer Relations <chrome-devrel@googlegroups.com>
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+    <title>HTML5 presentation</title>
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        font: 30px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;bsc
+        left: 0px; top: 0px;
+      }
+      p { margin:0px; }
+      .presentation {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0px;
+        top: 0px;
+        display: block;
+        overflow: hidden;
+        background: #DDD;
+      }
+
+      .slides {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        display: block;
+        -webkit-transition: -webkit-transform 1s ease-in-out;
+        -moz-transition: -moz-transform 1s ease-in-out;
+        -o-transition: -o-transform 1s ease-in-out;
+        transition: transform 1s ease-in-out;
+
+        /* so it's visible in the iframe. */
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -o-transform: scale(0.8);
+        transform: scale(0.8);
+
+      }
+
+      .slide {
+        display: none;
+        position: absolute;
+        overflow: hidden;
+        width: 900px;
+        height: 700px;
+        left: 50%;
+        top: 50%;
+        margin-top: -350px;
+        background-color: rgb(35, 94, 124);
+        -webkit-transition: all 0.25s ease-in-out;
+        -moz-transition: all 0.25s ease-in-out;
+        -o-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+
+        border-radius: 25px;
+      }
+
+      header {
+         position:absolute;
+         top:25px;
+      }
+      .withheader { padding-top:75px; }
+
+      /*.slide:nth-child(even) {
+        -moz-border-radius: 20px 0;
+        -khtml-border-radius: 20px 0;
+        border-radius: 20px 0; /* includes Opera 10.5+ */
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+      }
+
+      .slide:nth-child(odd) {
+        -moz-border-radius: 0 20px;
+        -khtml-border-radius: 0 20px;
+        border-radius: 0 20px;
+        -webkit-border-top-right-radius: 20px;
+        -webkit-border-bottom-left-radius: 20px;
+      }*/
+
+      .slide p, .slide textarea {
+        font-size: 120%;
+      }
+
+      .slide .counter {
+        color: #999999;
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        display: block;
+        font-size: 70%;
+      }
+
+      .slide.title > .counter,
+      .slide.segue > .counter,
+      .slide.mainTitle > .counter {
+        display: none;
+      }
+
+      .force-render {
+        display: block;
+        visibility: hidden;
+      }
+
+      .slide.far-past {
+        display: block;
+        margin-left: -2400px;
+      }
+
+      .slide.past {
+        visibility: visible;
+        display: block;
+        margin-left: -1400px;
+      }
+
+      .slide.current {
+        visibility: visible;
+        display: block;
+        margin-left: -450px;
+      }
+
+      .slide.future {
+        visibility: visible;
+        display: block;
+        margin-left: 500px;
+      }
+
+      .slide.far-future {
+        display: block;
+        margin-left: 1500px;
+      }
+
+      body.three-d div.slides {
+        -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+        transform: translateX(50px) scale(0.8) rotateY(10deg);
+      }
+
+      /* Content */
+
+      @font-face { font-family: 'Junction'; src: url(src/Junction02.otf); }
+      @font-face { font-family: 'LeagueGothic'; src: url(src/LeagueGothic.otf); }
+
+      header {
+        font-family: 'Droid Sans';
+        font-weight: normal;
+        letter-spacing: -.05em;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        left: 30px;
+        top: 25px;
+        margin: 0;
+        padding: 0;
+        font-size: 140%;
+      }
+
+      h1 {
+        font-size: 300%;
+        display: inline;
+        color: #FFF;
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+      }
+
+      h2 {
+        font-family: 'Droid Sans';
+        color: #FFF;
+        font-size: 120%;
+        padding: 0;
+        margin: 20px 0;
+      }
+
+      h2:first-child {
+        margin-top: 0;
+      }
+
+      section, footer {
+        font-family: 'Droid Sans';
+        color: #FFF;
+        text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+        margin: 100px 30px 0;
+        display: block;
+        overflow: hidden;
+      }
+
+      footer {
+        font-size: 100%;
+        margin: 20px 0 0 30px;
+      }
+
+      a {
+        color: inherit;
+        display: inline-block;
+        text-decoration: none;
+        line-height: 110%;
+        border-bottom: 2px solid #3f3f3f;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        font-size: 100%;
+      }
+
+      pre button {
+        margin: 2px;
+      }
+
+      section.left {
+        float: left;
+        width: 390px;
+      }
+
+      section.small {
+        font-size: 24px;
+      }
+
+      section.small ul {
+        margin: 0 0 0 15px;
+        padding: 0;
+      }
+
+      section.small li {
+        padding-bottom: 0;
+      }
+
+      section.middle {
+        line-height: 2em;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        height: 700px;
+        width: 900px;
+        margin-top:25px;
+      }
+
+      pre {
+        margin: 20px 50px;
+        text-align: left;
+        font-family: 'Droid Sans Mono', Courier;
+        font-size: 80%;
+        padding: 10px 20px;
+        background: rgba(255, 0, 0, 0.05);
+        -webkit-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 0, 0, 0.2);
+      }
+
+      pre select {
+        font-family: Monaco, Courier;
+        border: 1px solid #c61800;
+      }
+
+      input {
+        font-size: 100%;
+        margin-right: 10px;
+        font-family: Helvetica;
+        padding: 3px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+
+      button {
+        margin: 20px 10px 0 0;
+        font-family: Verdana;
+      }
+
+      button.large {
+        font-size: 32px;
+      }
+
+      pre b {
+        font-weight: normal;
+        color: #c61800;
+        text-shadow: #c61800 0 0 1px;
+        /*letter-spacing: -1px;*/
+      }
+      pre em {
+        font-weight: normal;
+        font-style: normal;
+        color: #18a600;
+        text-shadow: #18a600 0 0 1px;
+      }
+      pre input[type="range"] {
+        height: 6px;
+        cursor: pointer;
+        width: auto;
+      }
+
+      div.example {
+        display: block;
+        padding: 10px 20px;
+        color: black;
+        background: rgba(255, 255, 255, 0.4);
+        -webkit-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      video {
+        -moz-border-radius: 8px;
+        -khtml-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .key {
+        font-family: 'Droid Sans';
+        color: black;
+        display: inline-block;
+        padding: 6px 10px 3px 10px;
+        font-size: 100%;
+        line-height: 30px;
+        text-shadow: none;
+        letter-spacing: 0;
+        bottom: 10px;
+        position: relative;
+        -moz-border-radius: 10px;
+        -khtml-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: white;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+        -o-box-shadow: rgba(0, 0, 0, 0.1) 0 2px 5px;
+      }
+
+      .key { font-family: Arial; }
+
+      :not(header) > .key {
+        margin: 0 5px;
+        bottom: 4px;
+      }
+
+      .two-column {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+      }
+
+      .stroke {
+        -webkit-text-stroke-color: red;
+        -webkit-text-stroke-width: 1px;
+      } /* currently webkit-only */
+
+      .center {
+        text-align: center;
+      }
+
+      #presentation-counter {
+        color: #ccc;
+        font-size: 70%;
+        letter-spacing: 1px;
+        position: absolute;
+        top: 40%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+
+      div:not(.current).reduced {
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -o-transform: scale(0.8);
+        transform: scale(0.8);
+      }
+
+      .no-transitions {
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+      }
+
+      .no-gradients {
+        background: none;
+        background-color: #fff;
+      }
+
+      ul.bulleted {
+        padding-left: 30px;
+      }
+
+      .code { font-size:60%; line-height:150%; }
+      .result { opacity: 0.7; }
+      h5 { margin: 0px; }
+    </style>
+
+  </head>
+  <body>
+    <div class="presentation">
+      <div id="presentation-counter"></div>
+      <div class="slides">
+
+        <div class="slide">
+          <section class="middle">
+            <h1>Mobile Couchbase</h1>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Brief History of CouchDB</h2></header>
+            <ul>
+              <li>Document Oriented Database</li>
+              <li>Started by Damien Katz: 2005</li>
+              <li>Originally XML Database written in C++</li>
+              <li>Rewritten in Erlang, moved to JSON</li>
+              <li>Became an Apache project 2008</li>
+              <li>Founded Couch.io 2010 -> CouchOne -> Couchbase</li>
+            </ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>What is CouchDB?</h2></header>
+            <div class="withheader">
+              <ul style="float:left;text-align:right;margin-left:100px;list-style-type:none;">
+                <li>JSON</li>
+                <li>HTTP</li>
+                <li>Map Reduce</li>
+                <li>Replication (Sync)</li>
+                <li>CouchApps</li>
+                <li>GeoCouch</li>
+                <li>Robust</li>
+              </ul>
+              <img src="./img/sketch.png" width="400"/>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>JSON:</h2></header>
+
+            <div class="withheader">
+              <pre>{
+    <em>"_id"</em>: "49c8b92961f5fbf9bc13fbcc00000484",
+    <em>"_rev"</em>: "2-bc797d9090695d916a89d6166d125581",
+    "some": "json",
+    "an": ["array", "of", "things"],
+    "and": {"child": "objects"},
+    "numbers": 42
+}</pre>
+            </div>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>HTTP API - Database</h2></header>
+            <div class="withheader">
+              <pre class="code">GET $HOST
+<span class="result">{"couchdb":"Welcome","version":"1.2.0a-c856916-git"}</span>
+
+GET $HOST/demo
+<span class="result">{"error":"not_found","reason":"no_db_file"}</span>
+
+PUT $HOST/demo
+<span class="result">{"ok":true}</span>
+
+GET $HOST/demo
+<span class="result">{"db_name":"demo","doc_count":0 ... }</span>
+</pre>
+            </div>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>HTTP API - Documents</h2></header>
+            <div class="withheader">
+              <pre class="code">PUT $HOST/demo/doc {"foo":"bar"}
+<span class="result">{"ok":true,"id":"doc","rev":"1-4c6114c65e295552ab1019e2b046b10e"}</span>
+
+GET $HOST/demo/doc
+<span class="result">{"_id":"doc","_rev":"4-42dd533bd9d3e47403c1914ad663ab8b","foo":"bar"}</span>
+
+POST $HOST/demo '{"foo":"bar"}'
+<span class="result">{"ok":true,"id":"49c8b92961f5fbf9bc13fbcc0000128a", \
+  "rev":"1-4c6114c65e295552ab1019e2b046b10e"}</span></pre>
+            </div>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>HTTP API - Documents</h2></header>
+            <div class="withheader">
+              <pre class="code">PUT $HOST/demo/doc
+  {"_rev":"1-4c6114c65e295552ab1019e2b046b10e", "new":"content"}
+<span class="result">{"ok":true,"id":"doc","rev":"2-c8b28721ed96f3dc039a1ab3f85b0dba"}</span>
+
+DELETE $HOST/demo/doc?rev=2-c8b28721ed96f3dc039a1ab3f85b0dba
+<span class="result">{"ok":true,"id":"doc","rev":"3-8d9fecfc76473aa0d412ca228468c8cc"}</span>
+
+PUT $HOST/demo/newdoc/test.html --data-binary @test.html
+<span class="result">{"ok":true,"id":"newdoc","rev":"1-a2833f8c791e5ce692f2210ef3249d89"}</span></pre>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Map Reduce</h2></header>
+            <img src="./img/mapreduce.png" />
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Map Reduce</h2></header>
+            <h5>Incrementally Built</h5>
+            <h5>Map</h5>
+              <pre class="code">function(doc) {
+  if (doc.type && doc.type === 'task' && doc.status === "complete") {
+      emit([doc.index || 0], null);
+  }
+}</pre>
+
+              <h5>Reduce</h5>
+              <pre>_count</pre>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>BTree </h2></header>
+            <img src="./img/btree.png" />
+            <ul>
+              <li>Uses B-Tree for both data and view storage</li>
+              <li>Minimise disk seeks / Concurrent access</li>
+            </ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Append Only</h2></header>
+            <ul>
+              <li>BTree is stored on disk as append only file</li>
+              <li>Updates / Deletions dont modify data</li>
+              <li>Only returns ok for writes when data is guaranteed to be<br /> safe on disk (delayed_commits)</li>
+              <li>killdashnine party! Safe way to shutdown CouchDB is <pre>kill -9</pre></li>
+            </ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Changes Feed</h2></header>
+            <div class="withheader">
+              <h5>Can read the database as a series of changes</h5>
+              <pre class="code">$ curl $HOST/demo/_changes
+{"results":[
+{"seq":2,"id":"49c8b92961f5fbf9bc13fbcc0000128a","changes":
+  [{"rev":"1-4c6114c65e295552ab1019e2b046b10e"}]},
+{"seq":7,"id":"newdoc","changes":
+  [{"rev":"1-a2833f8c791e5ce692f2210ef3249d89"}]},
+{"seq":8,"id":"doc","changes":
+  [{"rev":"4-42dd533bd9d3e47403c1914ad663ab8b"}]}
+],
+"last_seq":8}</pre>
+              <h5>Continous Changes can notify database activity</h5>
+              <pre class="code">curl "$HOST/demo/_changes?since=8&feed=longpoll"</pre>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Replication (Sync)</h2></header>
+            <div class="withheader">
+              <h5>Move data between databases</h5>
+              <pre class="code">POST /_replicate {"source": "mydatabase", "target":"backup"}</pre>
+              <h5>Can specify specific documents / generic filter</h5>
+              <pre class="code">function (doc, req) {
+  if (doc._id.match("_design")) {
+    return true;
+  }
+  return doc.type && doc.type === "task";
+}</pre>
+              <h5>Can run continuously (changes are updated in real time)</h5>
+            </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>GeoCouch</h2></header>
+            <div class="withheader">
+              <pre class="code">GET $HOST/places/_design/main/_spatial/points?bbox=0,0,180,90</pre>
+              <img src="./img/geocouch.png" width="300" style="float:left; margin-left:100px"/>
+              <h5>R-Tree Index</h5>
+              <h5>GeoSpatial Queries</h5>
+              <h5>MapQuery</h5>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>CouchApps</h2></header>
+            <div class="withheader">
+              <img src="./img/couchapp.png" style="float:left; margin-right:20px; margin-left:100px"/>
+              <h5>Mochiweb web server built in</h5>
+              <h5>Can serve files via attachments</h5>
+              <h5>Can build whole Web apps with just CouchDB</h5>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Example CouchApps</h2></header>
+            <div class="withheader">
+              <ul>
+                <li><a href="http://mapchat.me/#/">MapChat</a></li>
+                <li><a href="http://datacouch.com">DataCouch</a></li>
+                <li><a href="http://couch.arandomurl.com/inception/_design/inception/index.html">Inception</a></li>
+                <li><a href="http://pdxapi.com/">PDX API</a></li>
+                <li><a href="http://npmjs.org/">npm (Node Package Manager)</a></li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Couch in the wild</h2></header>
+            <div class="withheader" style="padding:0px 50px;text-align:left;">
+              <div style="overflow:auto">
+              <img src="./img/ubuntuone.png" style="float:left; width:180px;margin-right:20px;top:20px;position:relative;"/>
+              <p>Canonical have built a file sync into Ubuntu itself, based on CouchDB it lets users access their files and program settings wherever they are.</p>
+              </div><br />
+              <div style="overflow:auto">
+              <img src="./img/meebo.png" style="float:left; width:180px;margin-right:20px;top:20px;position:relative;" />
+              <p>Meebo, one of the most popular online chat applications, uses CouchDB to store its users logs for future access and analysis.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Couch in the wild</h2></header>
+            <div class="withheader" style="padding:0px 50px;text-align:left;">
+              <div style="overflow:auto">
+              <img src="./img/dimagi.png" style="float:left; width:180px;margin-right:20px;top:20px;position:relative;"/>
+              <p>Dimagi uses CouchDB to provide healthcare data to remote clinics with no reliable internet.</p>
+              </div><br />
+              <div style="overflow:auto">
+              <img src="./img/groupcomplete.png" style="float:left; width:180px;margin-right:20px;top:20px;position:relative;" />
+              <p>Radical Dynamic built Group Complete, a mobile app for offline data collection on Android</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Why Mobile</h2></header>
+            <ul>
+              <li>Phones are often offline, need local data and ability to sync</li>
+              <li>Phone can kill app at any time, needs robust storage</li>
+              <li>HTML5 and Geo capabilities</li>
+            </ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Sync Patterns</h2></header>
+            <div class="withheader">
+              <ul>
+                <li>Couch has flexible / powerful sync1/li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Sync Patterns - Follow / Privacy</h2></header>
+            <div class="withheader">
+              <img src="./img/follow1.png" />
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Sync Patterns - Group Share</h2></header>
+            <div class="withheader">
+              <img src="./img/follow2.png" />
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Android Overview</h2></header>
+            <div class="withheader">
+              <img src="./img/android.png" style="float:left;margin-left:100px;width:200px;"/>
+              <ul>
+                <li>Modified glibc</li>
+                <li>Different shell (/system/bin/sh)</li>
+                <li>Lack of system libraries (blowfish)</li>
+                <li>Lots of fixing build files</li>
+                <li>Cant access beam files via filesystem</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>iOS Overview</h2></header>
+            <div class="withheader">
+              <img src="./img/iphone.png" style="float:left;margin-left:100px;width:200px;"/>
+            </div>
+              <ul>
+                <li>No Dynamic linking</li>
+                <li>No Subprocesses (DNS and NIFs)</li>
+                <li>OS can kill the process at any time</li>
+                <li>Cant execute writeable memory</li>
+              </ul>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Erlang on Mobile</h2></header>
+            <div class="withheader">
+              <ul>
+                <li>Mobile Networks will try to 'optimise' traffic</li>
+                <li>No way to reduce build reliably</li>
+                <li>Strip debug symbols</li>
+                <li>Surpisingly good power usage</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Going Forward</h2></header>
+            <div class="withheader">
+              <ul>
+                <li>Get patches into Erlang + Apache CouchDB</li>
+                <li>Reduce Build Size</li>
+                <li>Test thoroughly</li>
+                <li>Improve Startup Speed</li>
+                <li>General Release Imminent</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Resources</h2></header>
+            <div class="withheader">
+              <h2>Apache CouchDB</h2>
+              <ul>
+                <li><a href="http://couchdb.org">http://couchdb.org</a></li>
+                <li><a href="http://guide.couchdb.org">http://guide.couchdb.org</a></li>
+              </ul>
+              <h2>Couchbase + Mobile</h2>
+              <ul>
+                <li><a href="http://couchbase.com">http://couchbase.com</a></li>
+                <li><a href="http://github.com/couchbase">http://github.com/couchbase</a></li>
+                <li><a href="http://github.com/couchbaselabs">http://github.com/couchbaselabs</a></li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        <div class="slide">
+          <section class="middle">
+            <header><h2>Thank You!</h2></header>
+            <h1>Questions?</h1>
+          </section>
+        </div>
+
+      </div> <!-- slides -->
+
+    </div> <!-- presentation -->
+
+    <script>
+      (function() {
+        var doc = document;
+        var disableBuilds = true;
+
+        var ctr = 0;
+        var spaces = /\s+/, a1 = [''];
+
+        var toArray = function(list) {
+          return Array.prototype.slice.call(list || [], 0);
+        };
+
+        var byId = function(id) {
+          if (typeof id == 'string') { return doc.getElementById(id); }
+          return id;
+        };
+
+        var query = function(query, root) {
+          if (!query) { return []; }
+          if (typeof query != 'string') { return toArray(query); }
+          if (typeof root == 'string') {
+            root = byId(root);
+            if(!root){ return []; }
+          }
+
+          root = root || document;
+          var rootIsDoc = (root.nodeType == 9);
+          var doc = rootIsDoc ? root : (root.ownerDocument || document);
+
+          // rewrite the query to be ID rooted
+          if (!rootIsDoc || ('>~+'.indexOf(query.charAt(0)) >= 0)) {
+            root.id = root.id || ('qUnique' + (ctr++));
+            query = '#' + root.id + ' ' + query;
+          }
+          // don't choke on something like ".yada.yada >"
+          if ('>~+'.indexOf(query.slice(-1)) >= 0) { query += ' *'; }
+
+          return toArray(doc.querySelectorAll(query));
+        };
+
+        var strToArray = function(s) {
+          if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+              a1[0] = s;
+              return a1;
+            } else {
+              return s.split(spaces);
+            }
+          }
+          return s;
+        };
+
+        var addClass = function(node, classStr) {
+          classStr = strToArray(classStr);
+          var cls = ' ' + node.className + ' ';
+          for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+              cls += c + ' ';
+            }
+          }
+          node.className = cls.trim();
+        };
+
+        var removeClass = function(node, classStr) {
+          var cls;
+          if (classStr !== undefined) {
+            classStr = strToArray(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+              cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = cls.trim();
+          } else {
+            cls = '';
+          }
+          if (node.className != cls) {
+            node.className = cls;
+          }
+        };
+
+        var toggleClass = function(node, classStr) {
+          var cls = ' ' + node.className + ' ';
+          if (cls.indexOf(' ' + classStr.trim() + ' ') >= 0) {
+            removeClass(node, classStr);
+          } else {
+            addClass(node, classStr);
+          }
+        };
+
+        var ua = navigator.userAgent;
+        var isFF = parseFloat(ua.split('Firefox/')[1]) || undefined;
+        var isWK = parseFloat(ua.split('WebKit/')[1]) || undefined;
+        var isOpera = parseFloat(ua.split('Opera/')[1]) || undefined;
+
+        var canTransition = (function() {
+          var ver = parseFloat(ua.split('Version/')[1]) || undefined;
+          // test to determine if this browser can handle CSS transitions.
+          var cachedCanTransition =
+            (isWK || (isFF && isFF > 3.6 ) || (isOpera && ver >= 10.5));
+          return function() { return cachedCanTransition; }
+        })();
+
+        //
+        // Slide class
+        //
+        var Slide = function(node, idx) {
+          this._node = node;
+          if (idx >= 0) {
+            this._count = idx + 1;
+          }
+          if (this._node) {
+            addClass(this._node, 'slide distant-slide');
+          }
+          this._makeCounter();
+          this._makeBuildList();
+        };
+
+        Slide.prototype = {
+          _node: null,
+          _count: 0,
+          _buildList: [],
+          _visited: false,
+          _currentState: '',
+          _states: [ 'distant-slide', 'far-past',
+                     'past', 'current', 'future',
+                     'far-future', 'distant-slide' ],
+          setState: function(state) {
+            if (typeof state != 'string') {
+              state = this._states[state];
+            }
+            if (state == 'current' && !this._visited) {
+              this._visited = true;
+              this._makeBuildList();
+            }
+            removeClass(this._node, this._states);
+            addClass(this._node, state);
+            this._currentState = state;
+
+            // delay first auto run. Really wish this were in CSS.
+            /*
+            this._runAutos();
+            */
+            var _t = this;
+            setTimeout(function(){ _t._runAutos(); } , 400);
+          },
+          _makeCounter: function() {
+            if(!this._count || !this._node) { return; }
+            var c = doc.createElement('span');
+            c.innerHTML = this._count;
+            c.className = 'counter';
+            this._node.appendChild(c);
+          },
+          _makeBuildList: function() {
+            this._buildList = [];
+            if (disableBuilds) { return; }
+            if (this._node) {
+              this._buildList = query('[data-build] > *', this._node);
+            }
+            this._buildList.forEach(function(el) {
+              addClass(el, 'to-build');
+            });
+          },
+          _runAutos: function() {
+            if (this._currentState != 'current') {
+              return;
+            }
+            // find the next auto, slice it out of the list, and run it
+            var idx = -1;
+            this._buildList.some(function(n, i) {
+              if (n.hasAttribute('data-auto')) {
+                idx = i;
+                return true;
+              }
+              return false;
+            });
+            if (idx >= 0) {
+              var elem = this._buildList.splice(idx, 1)[0];
+              var transitionEnd = isWK ? 'webkitTransitionEnd' : (isFF ? 'mozTransitionEnd' : 'oTransitionEnd');
+              var _t = this;
+              if (canTransition()) {
+                var l = function(evt) {
+                  elem.parentNode.removeEventListener(transitionEnd, l, false);
+                  _t._runAutos();
+                };
+                elem.parentNode.addEventListener(transitionEnd, l, false);
+                removeClass(elem, 'to-build');
+              } else {
+                setTimeout(function() {
+                  removeClass(elem, 'to-build');
+                  _t._runAutos();
+                }, 400);
+              }
+            }
+          },
+          buildNext: function() {
+            if (!this._buildList.length) {
+              return false;
+            }
+            removeClass(this._buildList.shift(), 'to-build');
+            return true;
+          },
+        };
+
+        //
+        // SlideShow class
+        //
+        var SlideShow = function(slides) {
+          this._slides = (slides || []).map(function(el, idx) {
+            return new Slide(el, idx);
+          });
+
+          var h = window.location.hash;
+          try {
+            this.current = parseInt(h.split('#slide')[1], 10);
+          }catch (e) { /* squeltch */ }
+          this.current = isNaN(this.current) ? 1 : this.current;
+          var _t = this;
+          doc.addEventListener('keydown',
+              function(e) { _t.handleKeys(e); }, false);
+          doc.addEventListener('mousewheel',
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('DOMMouseScroll',
+              function(e) { _t.handleWheel(e); }, false);
+          doc.addEventListener('touchstart',
+              function(e) { _t.handleTouchStart(e); }, false);
+          doc.addEventListener('touchend',
+              function(e) { _t.handleTouchEnd(e); }, false);
+          window.addEventListener('popstate',
+              function(e) { _t.go(e.state); }, false);
+          this._update();
+        };
+
+        SlideShow.prototype = {
+          _slides: [],
+          _update: function(dontPush) {
+
+            // catch to set things right on the initial load. popstate fires on pageload.
+            if (this.current === null) return;
+
+            document.querySelector('#presentation-counter').innerText = this.current;
+            if (history.pushState) {
+              if (!dontPush) {
+                history.pushState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+              }
+            } else {
+              window.location.hash = 'slide' + this.current;
+            }
+            for (var x = this.current-1; x < this.current + 7; x++) {
+              if (this._slides[x-4]) {
+                this._slides[x-4].setState(Math.max(0, x-this.current));
+              }
+            }
+          },
+
+          current: 0,
+          next: function() {
+            if (!this._slides[this.current-1].buildNext()) {
+              this.current = Math.min(this.current + 1, this._slides.length);
+              this._update();
+            }
+          },
+          prev: function() {
+            this.current = Math.max(this.current-1, 1);
+            this._update();
+          },
+          go: function(num) {
+            if (history.pushState && this.current != num) {
+              history.replaceState(this.current, 'Slide ' + this.current, '#slide' + this.current);
+            }
+            this.current = num;
+            this._update(true);
+          },
+
+          _notesOn: false,
+          showNotes: function() {
+            var isOn = this._notesOn = !this._notesOn;
+            query('.notes').forEach(function(el) {
+              el.style.display = (notesOn) ? 'block' : 'none';
+            });
+          },
+          switch3D: function() {
+            toggleClass(document.body, 'three-d');
+          },
+          handleWheel: function(e) {
+            var delta = 0;
+            if (e.wheelDelta) {
+              delta = e.wheelDelta/120;
+              if (isOpera) {
+                delta = -delta;
+              }
+            } else if (e.detail) {
+              delta = -e.detail/3;
+            }
+
+            if (delta > 0 ) {
+              this.prev();
+              return;
+            }
+            if (delta < 0 ) {
+              this.next();
+              return;
+            }
+          },
+          handleKeys: function(e) {
+            if (/^(input|textarea)$/i.test(e.target.nodeName) ||
+                e.target.isContentEditable) {
+              return;
+            }
+            switch (e.keyCode) {
+              case 37: // left arrow
+                this.prev(); break;
+              case 39: // right arrow
+              case 32: // space
+                this.next(); break;
+              case 50: // 2
+                this.showNotes(); break;
+              case 51: // 3
+                this.switch3D(); break;
+            }
+          },
+          _touchStartX: 0,
+          handleTouchStart: function(e) {
+            this._touchStartX = e.touches[0].pageX;
+          },
+          handleTouchEnd: function(e) {
+            var delta = this._touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (delta > SWIPE_SIZE) {
+              this.next();
+            } else if (delta< -SWIPE_SIZE) {
+              this.prev();
+            }
+          },
+        };
+
+        // Initialize
+        var slideshow = new SlideShow(query('.slide'));
+
+         //document.querySelector('#toggle-counter').addEventListener('click', toggleCounter, false);
+        //document.querySelector('#toggle-size').addEventListener('click', toggleSize, false);
+        //document.querySelector('#toggle-transitions').addEventListener('click', toggleTransitions, false);
+        //document.querySelector('#toggle-gradients').addEventListener('click', toggleGradients, false);
+
+        var counters = document.querySelectorAll('.counter');
+        var slides = document.querySelectorAll('.slide');
+
+        function toggleCounter() {
+          toArray(counters).forEach(function(el) {
+            el.style.display = (el.offsetHeight) ? 'none' : 'block';
+          });
+        }
+
+        function toggleSize() {
+          toArray(slides).forEach(function(el) {
+            if (!/reduced/.test(el.className)) {
+              addClass(el, 'reduced');
+            }
+            else {
+              removeClass(el, 'reduced');
+            }
+          });
+        }
+
+        function toggleTransitions() {
+          toArray(slides).forEach(function(el) {
+            if (!/no-transitions/.test(el.className)) {
+              addClass(el, 'no-transitions');
+            }
+            else {
+              removeClass(el, 'no-transitions');
+            }
+          });
+        }
+
+        function toggleGradients() {
+          toArray(slides).forEach(function(el) {
+            if (!/no-gradients/.test(el.className)) {
+              addClass(el, 'no-gradients');
+            }
+            else {
+              removeClass(el, 'no-gradients');
+            }
+          });
+        }
+      })();
+    </script>
+
+    <!--[if lt IE 9]>
+    <script
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+    </script>
+    <script>CFInstall.check({ mode: "overlay" });</script>
+    <![endif]-->
+
+  </body>
+</html>
