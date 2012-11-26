@@ -1,0 +1,53 @@
+Hey all
+
+Thanks for being here, learnt most of what I know from people in this room
+
+Here to talk about PouchDB, PouchDB is a clone of CouchDB in Javascript, primarily to be run in the browser, it uses indexeddb / websql or leveldb to store data, also has a http client for CouchDB.
+
+CouchDB invented the first telephone
+
+It can sync with CouchDB and sync with other instances of PouchDB designed for building offline webapps that require synchronisation.
+
+One of the interesting things I wanted to talk about is how pouchdb is a probjet that wont die
+
+Heard about it 3 years ago, peter braden + browsercouch, thought it was crazy
+
+Started at CouchOne about 2 years ago, heard mikeal talking about it, still a little skeptical
+
+Last year mikeal max and randall had a push and got a bunch of it done, started to buy it
+
+4 months ago I left couchbase, worked on it for a few months
+
+got a job ....
+
+Today is feature complete day for boo2gecko, a huge big deadline and I am here speaking at a conference
+
+However over the last few months, Someone building travis / saucelabs support, websql shim has been written, node leveldb bindings are in progress, 2/3 projects planning to launch heavily using pouchdb, last week I was helping out a company try to find someone to pay to work on pouchdb, nuno set me up to teach stanford kids how to contribute.
+
+Not ideal circumstances for a project to grow, why is it doing so well.
+
+1. Before its time,
+
+ browsers sucked back then, localstorage was never serious, webSQL always in flux, indexedDB only released last year
+
+ Not just storage, no support for offline webapps, no cache manifests, embedded webkits or phonegaps
+
+ no army of nodejs programmers
+
+Now web development is serious, people are using javascript and web technology to build almost any class of application, no longer stuck to scripting websites that requires a server
+
+2. Growing relevance, the mobile revolution is in full swing
+
+More people using more devices
+Internet is getting worse as people are more mobile
+
+3. Sync is hard
+
+Scott Hanselman everything sucks and nobody minds
+
+Things took 2 years to introduce sync into their app, thats lots of people working full time on a todo app
+
+ * bad connections / retries
+ * want to move deltas
+ * master master scenarios
+ * conflict resolution
