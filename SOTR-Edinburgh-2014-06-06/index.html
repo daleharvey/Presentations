@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+                <title>The Offline Web</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                          <section>
+                            <img src="assets/disconnected.PNG" width="150px" />
+                            <h2><strong>THE OFFLINE WEB</strong></h2>
+                          </section>
+
+                          <section>
+                            <img src="assets/firefoxos.png" width="500px" />
+                          </section>
+
+                          <section>
+                            <img src="assets/couchdb-logo.png" />
+                            &nbsp;&nbsp;&nbsp;
+                            <img src="assets/pouchdb.svg" width="200px" /><br />
+                            CouchDB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PouchDB
+                          </section>
+
+                          <section>
+                            <h2>Building a more capable web</h2>
+                          </section>
+
+                          <section>
+                            <h2>"A web based OS, but then it wont work offline?"</h2>
+                          </section>
+
+                          <section data-background="assets/wild_haggis.jpg">
+                            <h2 style="color:#FFF; position: relative; top: 300px;">Ever seen a wild haggis?</h2>
+                          </section>
+
+                          <section>
+                            <img src="assets/gmail.png" />
+                            <h2>Gmail Offline</h2>
+                          </section>
+
+                          <section>
+                            <img src="assets/thunderbird.jpg" />
+                            <h2>Thunderbird Offline</h2>
+                          </section>
+
+                          <section>
+                            <h2>Why care?</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>We go offline</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>Thinking outside the bubble, the world doesnt have ubiqutious internet.</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>That mobile thing got<br /> popular huh?</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>Performance, offline is like, really fast</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>Reliability and Trust</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <h2>Robustness, server downtime doesnt mean your app is unavailable</h2>
+                          </section>
+
+                          <section>
+                            <h3>Why care?</h3>
+                            <ul>
+                              <li>Privacy</li>
+                              <li>Security</li>
+                              <li>Peer to Peer functionality</li>
+                              <li>.... and more</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Delivering the best <br />user experience</h2>
+                          </section>
+
+                          <section>
+                            <h1>SOLD!</h1>
+                            <h2>But how does it work?</h2>
+                          </section>
+
+                          <section>
+                            <h2>It isnt magic</h2>
+                          </section>
+
+                          <section>
+                            <h2>Different applications will have different approaches</h2>
+                          </section>
+
+                          <section>
+                            <h3>Difficulty rating: meh</h3>
+                            <h2>Warn the user they are <br />offline</h2>
+                          </section>
+
+                          <section>
+                            <img src="assets/drive.png" />
+                          </section>
+
+                          <section>
+                            <h3>Difficulty rating: hard</h3>
+                            <h2>Provide users cached data</h2>
+                          </section>
+
+                          <section>
+                            <h3>Difficulty rating: very hard</h3>
+                            <h2>Allow users minimal <br />interaction</h2>
+                          </section>
+
+                          <section>
+                            <h3>Difficulty rating: like, super hard</h3>
+                            <h2>Allow users full interaction with complex app</h2>
+                          </section>
+
+                          <section>
+                            <h2>How do we make this work?</h2>
+                          </section>
+
+                          <section>
+                            <h2>Packaged web apps</h2>
+                            <ul>
+                              <li>Embedded Webkit</li>
+                              <li>Cordova</li>
+                              <li>Firefox + Chrome Apps</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>Web app manifest</h2>
+                            <pre><code>{
+  "name": "The Example App",
+  "description": "Exciting Open Web development action!",
+  "launch_path": "/",
+  "version": "1.0"
+}</code></pre>
+                            <a href="http://www.w3.org/2012/sysapps/manifest/">http://www.w3.org/2012/sysapps/manifest/</a>
+                          </section>
+
+                          <section>
+                            <h2>AppCache</h2>
+                            <pre><code>CACHE MANIFEST
+index.html
+stylesheet.css
+images/logo.png
+scripts/main.js
+http://cdn.example.com/scripts/main.js</code></pre>
+                            <p><a href="http://alistapart.com/article/application-cache-is-a-douchebag">Application Cache is a Douchebag</a></p>
+                          </section>
+
+                          <section>
+                            <h2>Service Workers</h2>
+                            <pre><code>navigator.serviceWorker.register("/assets/v1/worker.js").then(
+  function(serviceWorker) {
+    console.log("success!");
+    serviceWorker.postMessage("Howdy from your installing page.");
+  }, function(why) {
+    console.error("Installing the worker failed!:", why);
+  }
+);</code></pre>
+                            <a href="http://www.w3.org/TR/2014/WD-service-workers-20140508/">http://www.w3.org/TR/2014/WD-service-workers-20140508/</a>
+                          </section>
+
+                          <section>
+                            <h2>localStorage</h2>
+                            <pre><code>localStorage.myData = 'quick brown fox';</code></pre>
+                            <ul>
+                              <li>Good for small settings</li>
+                              <li>Has to be a string</li>
+                              <li>Synchronous, blocks page</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>WebSQL</h2>
+                            <img src="assets/rip.gif" /><br />
+                            <a href="http://nparashuram.com/IndexedDBShim/">IndexedDB Polyfill</a>
+                          </section>
+
+                          <section>
+                            <h2>IndexedDB</h2>
+                            <pre><code>var trans = db.transaction(["todo"], "readwrite");
+var store = trans.objectStore("todo");
+var request = store.put({
+  "text": todoText,
+  "timeStamp" : new Date().getTime()
+});</code></pre>
+                            <ul>
+                              <li>Powerful, but complicated</li>
+                              <li>Implementations still somewhat different</li>
+                              <li>Likely want to use a wrapper</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>So I am ready to go? that didnt seem so hard ...</h2>
+                          </section>
+
+                          <section>
+                            <h2>Offline apps require a <br />different architecture</h2>
+                          </section>
+
+                          <section>
+                            <h2>May be tempted to <br />degrade when offline</h2>
+                            <pre><code>addEventListener('submit', function() {
+  request.post('/create/thing/', function (err, res) {
+    if (err) {
+      retryPost();
+    }
+    showNewThing();
+  });
+});</pre></code>
+                          </section>
+
+                          <section>
+                            <h2>Dont do that</h2>
+                          </section>
+
+                          <section>
+                            <h2>Hope for the best, plan for the worst</h2>
+                          </section>
+
+                          <section>
+                            <h2>Solution: put all the state in the client, sync data when possible</h2>
+                          </section>
+
+                          <section>
+                            <h2>now you have <br />N-1 problems</h2>
+                          </section>
+
+                          <section>
+                            <h2>Syncing data is hard</h2>
+                            <ul>
+                              <li>Want to sync changes asap</li>
+                              <li>Transfer the minimal amount of data</li>
+                              <li>Handle unreliable networks</li>
+                              <li>Deal with conflicting changes</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>You do not want to write your own protocol</h2>
+                          </section>
+
+                          <section>
+                            <h2>Things took 2 years to write sync for their todo list</h2>
+                          </section>
+
+                          <section>
+                            <img src="assets/things.png" />
+                          </section>
+
+                          <section>
+                            <h2>Email and calendar have their own protocol</h2>
+                          </section>
+
+                          <section>
+                            <h2>You do not want to use those protocols</h2>
+                          </section>
+
+                          <section>
+                            <h3>Solutions:</h3>
+
+                            <h2>JS Git - Git in JavaScript (yes seriously)</h2>
+                            <a href="https://github.com/creationix/js-git">https://github.com/creationix/js-git</a>
+                          </section>
+
+                          <section>
+                            <h3>Solutions:</h3>
+                            <img src="assets/hoodie.png" />
+                            <h2>Offline first Application Framework</h2>
+                            <a href="https://hood.ie">http://hood.ie</a>
+                          </section>
+
+                          <section>
+                            <img src="assets/pouchdb.svg" width="200px" />
+                            <h2>PouchDB - The Database that Syncs!</h2>
+                            <a href="https://pouchdb.com">http://pouchdb.com</a>
+                          </section>
+
+                          <section>
+                            <h2>PouchDB takes CouchDBs storage + replication and puts it in the browser</h2>
+                          </section>
+
+                          <section>
+                            <h2>Stores data locally and syncs in the background</h2>
+                          </section>
+
+                          <section>
+                            <h2>Basic database API</h2>
+                            <pre><code>var db = new PouchDB('name');
+
+db.post({'some': 'data'});
+
+db.sync('http://myserver.com/database', {live: true})
+
+db.changes().on('change', function() {
+  console.log('Ch-Ch-Changes');
+});</code></pre>
+                          </section>
+
+                          <section>
+                            <h3>Dont care where events come from</h3>
+                            <pre><code>elem.addEventListener('submit', function() {
+  db.put(formData);
+});
+
+db.changes().on('change', function() {
+  updateUI();
+});</code></pre>
+                          </section>
+
+
+                          <section>
+                            <h2>Data holds the state</h2>
+                            <pre><code>db.post({
+  'type': 'email',
+  'subject': 'KITTENS!'
+  'state': 'unsent'
+});
+</code></pre>
+                          </section>
+
+                          <section>
+                            <h2>On the server: </h2>
+                            <pre><code>db.changes().on('change', function(change) {
+  var doc = change.doc;
+  if (doc.type === 'email' && doc.state === 'unsent') {
+    sendEmail(doc, function (err, res) {
+      if (err) {
+        doc.failed = true;
+        doc.error = err.message;
+      } else {
+        doc.state = 'sent';
+      }
+      db.put(doc);
+    }
+  }
+});</code></pre>
+                          </section>
+
+                          <section>
+                            <h2>Conflicts</h2>
+                            <h2>decided by the app</h2>
+                            <pre><code>function mergeConflicts(docs) {
+  var result = {};
+  docs.forEach(function(doc) {
+    extend(result, doc);
+  });
+  return result;
+}</code></pre>
+                          </section>
+
+
+                          <section>
+                            <h2>DEMO</h2>
+                            <a href="http://sotr.pouchdb.com">http://sotr.pouchdb.com</a>
+                          </section>
+
+                          <section>
+                            <h2>To Surmise</h2>
+                            <ul>
+                              <li>Make your application work offline, its the right thing to do.</li>
+                              <li>Dont write your own sync protocol, its crazy</li>
+                              <li>Haggis exist</li>
+                            </ul>
+                          </section>
+
+                          <section>
+                            <h2>THANKS!</h2>
+                            <h3>Questions?</h2>
+                          </section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
